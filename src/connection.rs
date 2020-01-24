@@ -9,6 +9,12 @@ pub struct Connection<'env, AC: AutocommitMode> {
     safe: safe::Connection<'env, AC>,
 }
 
+impl<'env, AC: AutocommitMode> Connection<'env, AC> {
+    pub fn from_raw(safe: safe::Connection<'env, AC>) -> Connection<'env, AC> {
+        Connection { safe }
+    }
+}
+
 impl<'env, AC: AutocommitMode> Handle for Connection<'env, AC> {
     type To = ffi::Dbc;
     unsafe fn handle(&self) -> ffi::SQLHDBC {
